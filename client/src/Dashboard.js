@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import DATA from './data';
+import data from './data';
+import ProductList from './ProductList';
 import './Dashboard.css';
 
 class CommentBox extends Component {
@@ -10,10 +11,9 @@ class CommentBox extends Component {
   render() {
     return (
       <div className="container">
-        <div className="comments">
-          <h2>Comments:</h2>
-        </div>
-        <div className="form">
+        <div className="products">
+          <h2>Products:</h2>
+          <ProductList data={data} />
         </div>
       </div>
     );

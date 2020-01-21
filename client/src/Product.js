@@ -11,8 +11,8 @@ const Product = props => (
         <ReactMarkdown source={props.children} />
       </div>
       <div className="singleProductButtons">
-        <a onClick={() => { props.handleUpdateProduct(props.id); }}>update</a>
-        <a onClick={() => { props.handleDeleteProduct(props.id); }}>delete</a>
+        <a href="/#" onClick={() => { props.handleUpdateProduct(props.id); }}>update</a>
+        <a href="/#" onClick={() => { props.handleDeleteProduct(props.id); }}>delete</a>
       </div>
     </div>
   </div>

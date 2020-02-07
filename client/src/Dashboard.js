@@ -19,15 +19,15 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.loadProductsFromServer();
-    // if (!this.pollInterval) {
-    //   this.pollInterval = setInterval(this.loadProductsFromServer, 2000);
-    // }
+    if (!this.pollInterval) {
+      this.pollInterval = setInterval(this.loadProductsFromServer, 2000);
+    }
   }
 
-  // componentWillUnmount() {
-  //   if (this.pollInterval) clearInterval(this.pollInterval);
-  //   this.pollInterval = null;
-  // }
+  componentWillUnmount() {
+    if (this.pollInterval) clearInterval(this.pollInterval);
+    this.pollInterval = null;
+  }
 
   loadProductsFromServer = () => {
     fetch('/api/products/')
@@ -38,6 +38,26 @@ class Dashboard extends Component {
       });
   }
 
+  onChangeProduct = (e) => {
+    const newState = { ...this.state };
+    newState[e.target.name] = e.target.value;
+    this.setState(newState);
+  }
+
+  submitProduct = (e) => {
+    e.preventDefault();
+    const { product, detail } = this.state;
+    if (!product || !detail) return;
+    fetch('/api/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ product, detail }),
+    }).then(res => res.json()).then((res) => {
+      if (!res.success) this.setState({ error: res.error.message || res.error });
+      else this.setState({ product: '', detail: '', error: null });
+    });
+  }
+
   render() {
     return (
       <div className="container">
@@ -46,7 +66,29 @@ class Dashboard extends Component {
           <ProductList data={this.state.data} />
         </div>
       <div className="form">
-        <Product user={this.state.user} product={this.state.product} detail={this.state.detail} />
+      <form onSubmit={this.submitProduct}>
+        <input
+          type="text"
+          name="product"
+          placeholder="Product..."
+          value={this.product}
+          onChange={this.onChangeProduct}
+        />
+        <input
+          type="text"
+          name="detail"
+          placeholder="Product Details..."
+          value={this.detail}
+          onChange={this.onChangeProduct}
+        />
+        <button type="submit">Submit</button>
+      </form>
+        <Product
+          product={this.state.product}
+          detail={this.state.detail}
+          handleChangeProduct={this.onChangeProduct}
+          handleSubmit={this.submitProduct}
+        />
       </div>
       {this.state.error && <p>{this.state.error}</p>}
     </div>

@@ -32,15 +32,14 @@ router.get('/products', (req, res) => {
 router.post('/products', (req, res) => {
   const products = new Product();
   // body parser lets us use the req.body
-  const { user, product, detail } = req.body;
-  if (!user || !product) {
+  const { product, detail } = req.body;
+  if (!product || !detail) {
     // we should throw an error. we can do this check on the front end
     return res.json({
       success: false,
-      error: 'No user or product provided!'
+      error: 'No product or detail provided!'
     });
   }
-  products.user = user;
   products.product = product;
   products.detail = detail;
   products.save(err => {

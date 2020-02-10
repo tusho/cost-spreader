@@ -4,7 +4,7 @@ import Product from './Product';
 
 const ProductList = (props) => {
   const productNodes = props.data.map(product => (
-    <Product product={product.product} key={product._id} id={product._id}>
+    <Product product={product.product} key={product._id} id={product._id} handleUpdateItem={props.handleUpdateItem} handleDeleteItem={props.handleDeleteItem}>
       { product.detail}
     </Product>
   ));

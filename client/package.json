@@ -42,5 +42,6 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0"
   },
-  "port": 3001
+  "port": 3001,
+  "proxy": "http://localhost:3001"
 }

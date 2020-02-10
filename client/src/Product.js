@@ -11,8 +11,8 @@ const Product = props => (
         <ReactMarkdown source={props.children} />
       </div>
       <div className="singleProductButtons">
-        <a href="/#" onClick={() => { props.handleUpdateProduct(props.id); }}>update</a>
-        <a href="/#" onClick={() => { props.handleDeleteProduct(props.id); }}>delete</a>
+        <a href="/#" onClick={() => { props.handleUpdateItem(props.id); }}>update</a>
+        <a href="/#" onClick={() => { props.handleDeleteItem(props.id); }}>delete</a>
       </div>
     </div>
   </div>
@@ -22,8 +22,8 @@ Product.propTypes = {
   product: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  handleUpdateComment: PropTypes.func.isRequired,
-  handleDeleteComment: PropTypes.func.isRequired,
+  handleUpdateItem: PropTypes.func.isRequired,
+  handleDeleteItem: PropTypes.func.isRequired,
   timestamp: PropTypes.string.isRequired,
 };
 

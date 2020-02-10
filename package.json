@@ -20,5 +20,7 @@
     "mongoose": "^5.8.11",
     "morgan": "^1.9.1",
     "nodemon": "^2.0.2"
-  }
+  },
+  "proxy": "http://localhost:3001",
+  "port": 3001
 }

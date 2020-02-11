@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 
@@ -11,6 +12,7 @@ const Product = props => (
         <ReactMarkdown source={props.children} />
       </div>
       <div className="singleProductButtons">
+        <span className="time">{moment(props.timestamp).fromNow()}</span>
         <a href="/#" onClick={() => { props.handleUpdateItem(props.id); }}>update</a>
         <a href="/#" onClick={() => { props.handleDeleteItem(props.id); }}>delete</a>
       </div>

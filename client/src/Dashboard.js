@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
 import ProductList from './ProductList';
-import Product from './Product';
 import './Dashboard.css';
 
 class Dashboard extends Component {
@@ -49,7 +48,7 @@ class Dashboard extends Component {
     this.setState({
         product: oldItem.product,
         detail: oldItem.detail,
-        updateId: id
+        updateId: id,
     });
   }
 
@@ -71,22 +70,22 @@ class Dashboard extends Component {
     const { product, detail, updateId } = this.state;
     if (!product || !detail) return;
     if (updateId) {
-      this.submitUpdatedComment();
+      this.submitUpdatedItem();
     } else {
-      this.submitNewComment();
+      this.submitNewItem();
     }
   }
 
-  submitNewComment = () => {
+  submitNewItem = () => {
     const { product, detail } = this.state;
     const data = [
       ...this.state.data,
       {
         product,
-          detail,
-          _id: Date.now().toString(),
-          updatedAt: new Date(),
-          createdAt: new Date()
+        detail,
+        _id: Date.now().toString(),
+        updatedAt: new Date(),
+        createdAt: new Date()
       },
     ];
     this.setState({ data });
@@ -96,11 +95,13 @@ class Dashboard extends Component {
       body: JSON.stringify({ product, detail }),
     }).then(res => res.json()).then((res) => {
       if (!res.success) this.setState({ error: res.error.message || res.error });
-      else this.setState({ product: '', detail: '', error: null });
+      else {
+        this.setState({ product: '', detail: '', error: null });
+      }
     });
   }
 
-  submitUpdatedComment = () => {
+  submitUpdatedItem = () => {
     const { product, detail, updateId } = this.state;
     fetch(`/api/items/${updateId}`, {
       method: 'PUT',
@@ -125,14 +126,14 @@ class Dashboard extends Component {
             type="text"
             name="product"
             placeholder="Product..."
-            value={this.product}
+            value={this.state.product}
             onChange={this.onChangeItem}
           />
           <input
             type="text"
             name="detail"
             placeholder="Product Details..."
-            value={this.detail}
+            value={this.state.detail}
             onChange={this.onChangeItem}
           />
           <button type="submit">Submit</button>
